@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier . --write",
+    "watchbuild": "vite build --watch"
+  },
+  "dependencies": {
+    "preact": "^10.20.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.8.2",
+    "eslint": "^8.57.0",
+    "eslint-config-preact": "^1.4.0",
+    "prettier": "3.3.2",
+    "vite": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": "preact"
+  }
+}

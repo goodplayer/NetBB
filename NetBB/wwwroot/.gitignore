@@ -1,0 +1,2 @@
+# exclude index file from frontend project
+/index.html

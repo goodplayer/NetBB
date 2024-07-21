@@ -18,5 +18,17 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #F5F7FA;
+}
+
+.page-container {
+    width: 1160px;
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+}
+
+.header-container {
+    margin: 5px;
 }
