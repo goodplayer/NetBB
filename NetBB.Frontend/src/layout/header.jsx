@@ -49,7 +49,7 @@ export class LoginedNavBar extends Component {
       <div class="hstack gap-3 border rounded-2 header-container">
         <div class="p-2">Quick Menu</div>
         <div class="p-2 ms-auto">
-          <a href="#">{nickname}</a>
+          <a href="#">{nickname}</a>&nbsp;&nbsp;<a href="/user/logout">Logout</a>
         </div>
       </div>
     );

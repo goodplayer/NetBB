@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace NetBB.Sources.EnhancedWeb
 {
-    public class EnhancedRazorPageModel : PageModel
+    public abstract class EnhancedRazorPageModel : PageModel
     {
         private readonly string CLAIM_NICKNAME = "nickname";
         private readonly string CLAIM_USER_ID = "user_id";
@@ -16,14 +16,36 @@ namespace NetBB.Sources.EnhancedWeb
         public string PageMode = "default";
         public IDictionary<string, object> RenderJson { get; } = new ConcurrentDictionary<string, object>();
         public IDictionary<string, object> ErrorInfo { get; } = new ConcurrentDictionary<string, object>();
+        public IDictionary<string, object> RenderObject { get; } = new ConcurrentDictionary<string, object>();
         public EnhancedRazorPageModel()
         {
             RenderJson["error_info"] = ErrorInfo;
+            RenderJson["render_object"] = RenderObject;
+        }
+
+        public void SetupAntiforgeryToken(IAntiforgery antiforgery)
+        {
+            RenderJson["request_verification_token"] = GetAntiforgeryToken(antiforgery);
         }
 
         public string GetAntiforgeryToken(IAntiforgery antiforgery)
         {
             return antiforgery.GetAndStoreTokens(HttpContext).RequestToken;
+        }
+
+        public long GetLoginedUserId()
+        {
+            string? userId = HttpContext.User.Claims.Where(c => c.Type == CLAIM_USER_ID).FirstOrDefault()?.Value;
+            if (userId == null)
+            {
+                throw new UnexpectedBusinessException("no login user");
+            }
+            long number = long.Parse(userId);
+            if (number <= 0)
+            {
+                throw new UnexpectedBusinessException("zero or negative user id");
+            }
+            return number;
         }
 
         public async Task SetLoginStatus(long userId, string nickname, string roleName, string loginId)
@@ -63,13 +85,29 @@ namespace NetBB.Sources.EnhancedWeb
             RenderJson["login"] = loginObj;
         }
 
-        public void RenderLogined(string nickname, long userId)
+        public void DirectlyRenderLogined(string nickname, long userId)
         {
             var loginObj = new Dictionary<string, object>();
             loginObj["is_logined"] = true;
             loginObj["nickname"] = nickname;
             loginObj["user_id"] = userId.ToString();
             RenderJson["login"] = loginObj;
+        }
+
+        public string TrimInputOrEmpty(string input)
+        {
+            if (input == null) return "";
+            return input.Trim();
+        }
+
+        public void AddErrorInfo(string key, string message)
+        {
+            ErrorInfo[key] = message;
+        }
+
+        public bool HasErrorInfo()
+        {
+            return ErrorInfo.Count > 0;
         }
 
         public void SetPageMode(string pageMode)
@@ -85,6 +123,10 @@ namespace NetBB.Sources.EnhancedWeb
             }
             PageMode = pageMode;
         }
-        
+
+        public void AddRenderItem(string key, object value)
+        {
+            RenderObject[key] = value;
+        }
     }
 }

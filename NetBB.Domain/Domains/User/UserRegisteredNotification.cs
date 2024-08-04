@@ -9,7 +9,7 @@ namespace NetBB.Domain.Domains.User
 {
     public class UserRegisteredNotification : IEventHandler<UserRegisteredEvent>
     {
-        public async Task HandleEvent(UserRegisteredEvent e, DomainContainer container)
+        public async Task HandleEvent(UserRegisteredEvent ev, DomainContainer container)
         {
             //Console.WriteLine("user registered!!!!!!!");
         }

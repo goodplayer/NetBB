@@ -5,6 +5,10 @@ export function ObtainRenderJsonFromHtmlPage() {
     return ____renderJson____
 }
 
+export function DefaultRenderObject() {
+  return (ObtainRenderJsonFromHtmlPage() && ObtainRenderJsonFromHtmlPage().render_object) ?? {}
+}
+
 export function ObtainAspNetCoreRequestVerificationTokenFromHtmlPage() {
     return ObtainRenderJsonFromHtmlPage().request_verification_token || '';
 }

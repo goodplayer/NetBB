@@ -26,10 +26,29 @@ namespace NetBB.System.EventBus.Services
             {
                 DomainContainer domainContainer = PrepareDomainContainer(serviceScopeFactory);
 
+                //TODO 事务未生效！例如：修改Post场景，主Post更新失败，但PostHistory插入成功了
                 return await transactionManager.RunInTransaction<R>(async () =>
                 {
                     var result = await service.HandleCommand(cmd, domainContainer);
                     await ((IEventDiaptcherInternal)domainContainer.EventDispatcher).RunEventHandling();
+                    return result;
+                });
+            }
+        }
+
+        public async Task<R> SendQuery<Q, R>(Q query) where Q : Query<R>
+        {
+            using var scoped = serviceScopeFactory.CreateAsyncScope();
+            var service = scoped.ServiceProvider.GetService<IQueryHandler<Q, R>>();
+            if (service == null)
+            {
+                throw new EventBusServiceException("No query handler found for query:" + query.GetType().Name);
+            }
+            else
+            {
+                return await transactionManager.RunInTransaction<R>(async () =>
+                {
+                    var result = await service.HandleQuery(query);
                     return result;
                 });
             }

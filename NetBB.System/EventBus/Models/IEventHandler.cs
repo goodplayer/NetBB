@@ -8,6 +8,6 @@ namespace NetBB.System.EventBus.Models
 {
     public interface IEventHandler<E> where E : Event
     {
-        Task HandleEvent(E e, DomainContainer container);
+        Task HandleEvent(E ev, DomainContainer container);
     }
 }

@@ -10,5 +10,7 @@ namespace NetBB.System.EventBus.Services
     public interface ICommandDispatcher
     {
         Task<R> SendCommand<C, R>(C cmd) where C : Command<R>;
+
+        Task<R> SendQuery<Q, R>(Q query) where Q : Query<R>;
     }
 }

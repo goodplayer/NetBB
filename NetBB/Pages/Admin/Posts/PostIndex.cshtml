@@ -1,5 +1,5 @@
-﻿@page "/user/register"
-@model NetBB.Pages.User.RegisterModel
+﻿@page "/admin/posts"
+@model NetBB.Pages.Admin.Posts.PostIndexModel
 @{
     Layout = "_LayoutPreactApp";
 }
@@ -10,11 +10,8 @@
 @{
     switch (Model.PageMode)
     {
-        case "registered":
-            <div id="app_user_registered"></div>
-            break;
         default:
-            <div id="app_user_register"></div>
+            <div id="app_admin_posts"></div>
             break;
     }
 }

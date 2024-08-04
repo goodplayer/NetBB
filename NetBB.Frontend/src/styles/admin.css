@@ -1,0 +1,12 @@
+.post-page {
+    margin: 5px;
+    padding: 0px;
+}
+.post-page-error-info {
+    margin: 0px;
+    padding: 0px;
+    color: #BC2A4D;
+    font-weight: bold;
+    list-style: circle;
+    list-style-position: inside;
+}

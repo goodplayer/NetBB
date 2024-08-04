@@ -28,7 +28,7 @@ namespace NetBB.Pages.User
         public async Task OnGetAsync()
         {
             // prepare form submission token
-            RenderJson["request_verification_token"] = GetAntiforgeryToken(antiforgery);
+            SetupAntiforgeryToken(antiforgery);
 
             PrepareRenderLoginStatus();
         }
@@ -39,7 +39,7 @@ namespace NetBB.Pages.User
             if (!Password.Equals(ConfirmPassword))
             {
                 ErrorInfo["password_mismatch"] = "√‹¬Î≤ª∆•≈‰";
-                RenderJson["request_verification_token"] = GetAntiforgeryToken(antiforgery);
+                SetupAntiforgeryToken(antiforgery);
                 return;
             }
 

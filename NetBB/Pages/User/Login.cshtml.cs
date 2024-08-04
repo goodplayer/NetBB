@@ -29,7 +29,7 @@ namespace NetBB.Pages.User
         public async Task OnGetAsync()
         {
             // prepare form submission token
-            RenderJson["request_verification_token"] = GetAntiforgeryToken(antiforgery);
+            SetupAntiforgeryToken(antiforgery);
 
             PrepareRenderLoginStatus();
         }
@@ -43,12 +43,12 @@ namespace NetBB.Pages.User
             {
                 await SetLoginStatus(result.userId, result.nickName, result.roleName, longIdGenerator.GenerateId());
                 SetPageMode("logined");
-                RenderLogined(result.nickName, result.userId);
+                DirectlyRenderLogined(result.nickName, result.userId);
             }
             else
             {
                 // prepare form submission token
-                RenderJson["request_verification_token"] = GetAntiforgeryToken(antiforgery);
+                SetupAntiforgeryToken(antiforgery);
                 ErrorInfo["login_failed"] = "用户名或密码不正确";
                 PrepareRenderLoginStatus();
             }

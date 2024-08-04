@@ -9,7 +9,8 @@
     "watchbuild": "vite build --watch"
   },
   "dependencies": {
-    "preact": "^10.20.0"
+    "preact": "^10.20.0",
+    "vditor": "^3.10.4"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",

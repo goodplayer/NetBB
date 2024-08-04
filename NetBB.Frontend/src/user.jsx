@@ -1,15 +1,15 @@
 import { h, render, Component } from "preact";
 
-import { Page } from "./shared";
-import { Header, GuestNavBar, LoginedNavBar } from "./header";
-import { CopyrightFooter } from "./footer"
-import { StandardPage } from "./standardpage"
+import { Page } from "./layout/shared";
+import { Header, GuestNavBar, LoginedNavBar } from "./layout/header";
+import { CopyrightFooter } from "./layout/footer"
+import { StandardPage } from "./layout/standardpage"
 
 import {
   AspNetCoreRequestVerificationTokenFieldComponent,
   GetErrorInfoList,
   UserIsLogin
-} from "./aspnetcore_utils"
+} from "./layout/aspnetcore_utils"
 
 import './styles/user.css'
 

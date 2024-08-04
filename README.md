@@ -78,6 +78,19 @@ node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 "watchbuild": "vite build --watch"
 ```
 
+根据Preact文档增加react兼容层
+
+```text
+vite.config.js中增加
+  resolve: {
+    alias: {
+      "react": "preact/compat",
+      "react-dom": "preact/compat",
+    }
+  },
+```
+
+
 ### 4.1 后端开发环境配置
 
 安装准备：
