@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetBB.Sources.EnhancedWeb;
-using NetBB.Sources.Session;
+using NetBB.Sources.Components;
 using System.Net.Mime;
 
 namespace NetBB.Sources.Controllers
 {
-    [EnableSession]
     [Route("async/user/{id}")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -61,7 +61,7 @@ namespace NetBB.Sources.EnhancedWeb
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true, // enable persistent cookie, meaning set-cookie from response for browser
-                ExpiresUtc = DateTime.UtcNow.AddMinutes(20),
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(60 * 24),
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
         }

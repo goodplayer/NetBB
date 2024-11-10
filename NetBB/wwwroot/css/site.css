@@ -33,3 +33,7 @@ body {
 .header-container {
     margin: 5px;
 }
+
+.default-article-display {
+    display: none;
+}

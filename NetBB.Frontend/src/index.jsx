@@ -9,7 +9,6 @@ import {
 
 import {
   AdminPostsNewPost,
-  AdminPostsNewPostCreated,
   DisplayAdminPosts,
   AdminPostsEditPost,
 } from "./admin/posts";
@@ -39,9 +38,6 @@ renderElements({
   },
   app_admin_posts_new_post: function (elem) {
     render(<AdminPostsNewPost />, elem);
-  },
-  app_admin_posts_new_post_created: function (elem) {
-    render(<AdminPostsNewPostCreated />, elem);
   },
   app_admin_posts: function (elem) {
     render(<DisplayAdminPosts />, elem);

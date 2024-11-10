@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBB.Sources.Session
+namespace NetBB.Sources.Components
 {
     // EnableSession attribute
     // used on class

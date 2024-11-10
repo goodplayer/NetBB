@@ -1,64 +1,74 @@
 # NetBB
 
-## 1. ½éÉÜ
+## 1. ä»‹ç»
 
-## 2. £¿£¿£¿
+## 2. å®‰è£…åŠä¾èµ–ç»„ä»¶
 
-## 3. ÏîÄ¿±àÒë
+ä¾èµ–ç»„ä»¶ï¼š
 
-### 3.1 ±àÒëÇ°¶ËÏîÄ¿
+* PostgreSQL - æ•°æ®åº“
+* Manticoresearch - å…¨æ–‡æœç´¢
+* Redis
+* Nats - æ¶ˆæ¯é˜Ÿåˆ—
+    * https://github.com/nats-io/nats.net
+    * https://nats-io.github.io/nats.net/index.html
+    * https://www.cnblogs.com/haogj/p/18309156
 
-½øÈëµ½¹¤³Ì`NetBB.Frontend`
+## 3. é¡¹ç›®ç¼–è¯‘
+
+### 3.1 ç¼–è¯‘å‰ç«¯é¡¹ç›®
+
+è¿›å…¥åˆ°å·¥ç¨‹`NetBB.Frontend`
 
 ```text
 npm run build
-»ò
+æˆ–
 _build.bat
 ```
 
-### 3.2 ±àÒëºó¶ËÏîÄ¿
+### 3.2 ç¼–è¯‘åç«¯é¡¹ç›®
 
-## 4. ¿ª·¢»·¾³ÅäÖÃ
+## 4. å¼€å‘ç¯å¢ƒé…ç½®
 
-### 4.1 Ç°¶Ë¿ª·¢»·¾³ÅäÖÃ
+### 4.1 å‰ç«¯å¼€å‘ç¯å¢ƒé…ç½®
 
-°²×°£º
+å®‰è£…ï¼š
 
 1. Node
 
-³õÊ¼»¯PreactÇ°¶ËÏîÄ¿
+åˆå§‹åŒ–Preactå‰ç«¯é¡¹ç›®
 
 ```text
 npm init preact
 
-³£ÓÃÃüÁî£º
-1. ¿ª·¢µ÷ÊÔ£º npm run dev
-2. ±àÒë¹¹½¨£º npm run build
+å¸¸ç”¨å‘½ä»¤ï¼š
+1. å¼€å‘è°ƒè¯•ï¼š npm run dev
+2. ç¼–è¯‘æ„å»ºï¼š npm run build
 ```
 
-É¾³ı²»ĞèÒªµÄÎÄ¼ş
+åˆ é™¤ä¸éœ€è¦çš„æ–‡ä»¶
 
 ```text
-Í¼Æ¬¡¢css
-jsÖĞimportµÄÍ¼Æ¬cssµÈ
+å›¾ç‰‡ã€css
+jsä¸­importçš„å›¾ç‰‡cssç­‰
 
-ÔÚaspnet core¹¤³ÌwwwrootÏÂÔö¼Ó.gitignoreÎÄ¼ş£¬²¢½«index.htmlÅÅ³ı£¬·ÀÖ¹Ç°¶ËÉú³ÉµÄ²âÊÔÓÃhtml½øÈë´úÂë¿â
+åœ¨aspnet coreå·¥ç¨‹wwwrootä¸‹å¢åŠ .gitignoreæ–‡ä»¶ï¼Œå¹¶å°†index.htmlæ’é™¤ï¼Œé˜²æ­¢å‰ç«¯ç”Ÿæˆçš„æµ‹è¯•ç”¨htmlè¿›å…¥ä»£ç åº“
 ```
 
-°²×°´úÂë¸ñÊ½»¯¹¤¾ß
+å®‰è£…ä»£ç æ ¼å¼åŒ–å·¥å…·
 
 ```text
 npm install --save-dev --save-exact prettier
 node --eval "fs.writeFileSync('.prettierrc','{}\n')"
 ```
 
-Ôö¼Ó´úÂë¸ñÊ½»¯ÃüÁî£¬ĞŞ¸Ä`package.json`ÎÄ¼şscriptsÏÂÃæÔö¼Ó
+å¢åŠ ä»£ç æ ¼å¼åŒ–å‘½ä»¤ï¼Œä¿®æ”¹`package.json`æ–‡ä»¶scriptsä¸‹é¢å¢åŠ 
 
 ```text
 "format": "prettier . --write",
 ```
 
-ÅäÖÃÇ°¶Ë¹¹½¨Êä³öÎÄ¼şÂ·¾¶µ½aspnet coreµÄwwwrootÏÂÃæ£¬Í¬Ê±Ãû×ÖÖĞÈ¥µôhash
+é…ç½®å‰ç«¯æ„å»ºè¾“å‡ºæ–‡ä»¶è·¯å¾„åˆ°aspnet coreçš„wwwrootä¸‹é¢ï¼ŒåŒæ—¶åå­—ä¸­å»æ‰hash
 
 ```text
   build: {
@@ -72,16 +82,16 @@ node --eval "fs.writeFileSync('.prettierrc','{}\n')"
   },
 ```
 
-Ôö¼Ó¶¯Ì¬¼à¿ØÎÄ¼ş±ä¶¯²¢±àÒëµÄÃüÁî£¬ĞŞ¸Ä`package.json`ÎÄ¼şscriptsÏÂÃæÔö¼Ó
+å¢åŠ åŠ¨æ€ç›‘æ§æ–‡ä»¶å˜åŠ¨å¹¶ç¼–è¯‘çš„å‘½ä»¤ï¼Œä¿®æ”¹`package.json`æ–‡ä»¶scriptsä¸‹é¢å¢åŠ 
 
 ```text
 "watchbuild": "vite build --watch"
 ```
 
-¸ù¾İPreactÎÄµµÔö¼Óreact¼æÈİ²ã
+æ ¹æ®Preactæ–‡æ¡£å¢åŠ reactå…¼å®¹å±‚
 
 ```text
-vite.config.jsÖĞÔö¼Ó
+vite.config.jsä¸­å¢åŠ 
   resolve: {
     alias: {
       "react": "preact/compat",
@@ -91,9 +101,9 @@ vite.config.jsÖĞÔö¼Ó
 ```
 
 
-### 4.1 ºó¶Ë¿ª·¢»·¾³ÅäÖÃ
+### 4.1 åç«¯å¼€å‘ç¯å¢ƒé…ç½®
 
-°²×°×¼±¸£º
+å®‰è£…å‡†å¤‡ï¼š
 
 1. Dotnet SDK
 

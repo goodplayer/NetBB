@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetBB.Domain.Domains.User;
 using NetBB.Sources.EnhancedWeb;
-using NetBB.Sources.Session;
+using NetBB.Sources.Components;
 using NetBB.System.EventBus.Services;
 using System.Collections.Concurrent;
 
 namespace NetBB.Pages.User
 {
-    [EnableSession]
     public class RegisterModel(ILogger<RegisterModel> logger
         , ICommandDispatcher commandDispatcher
         , IAntiforgery antiforgery) : EnhancedRazorPageModel

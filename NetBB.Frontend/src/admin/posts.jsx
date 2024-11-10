@@ -184,6 +184,7 @@ export class AdminPostsNewPost extends Component {
         return (
             <StandardPage>
                 <div class="post-page border rounded-2" style="padding: 10px;">
+                    <a href="/admin/posts">返回文章列表</a>
                     <h2>New Post</h2>
                     <form method="post" action="/admin/posts/new_post">
                         <AspNetCoreRequestVerificationTokenFieldComponent />
@@ -206,16 +207,6 @@ export class AdminPostsNewPost extends Component {
                         </div>
                     </form>
                 </div>
-            </StandardPage>
-        );
-    }
-}
-
-export class AdminPostsNewPostCreated extends Component {
-    render() {
-        return (
-            <StandardPage>
-                <div class="post-page">TBD new post</div>
             </StandardPage>
         );
     }

@@ -5,15 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetBB.Domain.Domains.User;
 using NetBB.Sources.EnhancedWeb;
-using NetBB.Sources.Session;
+using NetBB.Sources.Components;
 using NetBB.System.EventBus.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using NetBB.Sources.Utilities;
+using Microsoft.AspNetCore.Http.Headers;
 
 namespace NetBB.Pages.User
 {
-    [EnableSession]
     public class LoginModel(ILogger<LoginModel> logger
         , IAntiforgery antiforgery
         , ICommandDispatcher commandDispatcher
@@ -28,6 +28,11 @@ namespace NetBB.Pages.User
 
         public async Task OnGetAsync()
         {
+            //TODO login redirect to original page
+            //RequestHeaders header = HttpContext.Request.GetTypedHeaders();
+            //string uriReferer = header.Referer?.ToString() ?? "";
+            //logger.LogError("========>>> login referer: {}", uriReferer);
+
             // prepare form submission token
             SetupAntiforgeryToken(antiforgery);
 
@@ -49,7 +54,7 @@ namespace NetBB.Pages.User
             {
                 // prepare form submission token
                 SetupAntiforgeryToken(antiforgery);
-                ErrorInfo["login_failed"] = "ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·";
+                ErrorInfo["login_failed"] = "ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®";
                 PrepareRenderLoginStatus();
             }
         }

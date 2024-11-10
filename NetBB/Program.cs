@@ -4,14 +4,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NATS.Client.Core;
+using NATS.Client.Hosting;
+using NATS.Client.Services;
 using NetBB.Domain;
 using NetBB.Domain.Infrastructures;
 using NetBB.Infrastructure;
 using NetBB.Infrastructure.EventBusComponents;
+using NetBB.Infrastructure.EventHandlers;
 using NetBB.Infrastructure.Repositories;
 using NetBB.Infrastructure.Session;
 using NetBB.Sources.Components;
-using NetBB.Sources.Session;
+using NetBB.Sources.Components;
 using NetBB.Sources.Utilities;
 using NetBB.System.EventBus.Models;
 using NetBB.System.EventBus.Services;
@@ -129,6 +133,20 @@ namespace NetBB
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
             }, poolSize: builder.Configuration.GetSection("DatabasePool").GetValue<int>("PoolSize"));
             builder.Services.AddSingleton<ITransactionManager, TransactionManagerImpl>();
+
+            // initialize nats client
+            builder.Services.AddNats(configureOpts: option =>
+            {
+                return NatsOpts.Default with
+                {
+                    Url = builder.Configuration.GetConnectionString("Nats"),
+                };
+            });
+
+            // initialize hosted service, aka background service
+            // 1. register manticore search handler
+            builder.Services.AddHostedService<CreatingPostInManticoreSearchConsumer>();
+
 
             /// About Authentication
             /// 1. Methods: cookie, 2FA, 3rd party, jwt, etc.
