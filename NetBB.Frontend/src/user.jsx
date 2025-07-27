@@ -28,7 +28,7 @@ export class UserLogined extends Component {
           <h2 style="margin: 10px">Information</h2>
           <hr style="margin: 10px" />
           <p style="margin: 10px">You have logged in successfully.</p>
-          <p style="margin: 10px"><a href={redirectInfo}>Return to the index page</a></p>
+          <p style="margin: 10px"><a href={redirectInfo}>Return to the previous page</a></p>
         </div>
       </StandardPage>
     );
