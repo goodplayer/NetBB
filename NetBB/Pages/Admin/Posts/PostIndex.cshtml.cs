@@ -7,14 +7,14 @@ using NetBB.System.EventBus.Services;
 
 namespace NetBB.Pages.Admin.Posts
 {
-    public class PostIndexModel(IPostRepository postRepository
-        , ICommandDispatcher commandDispatcher) : EnhancedRazorPageModel
+    public class PostIndexModel(IPostRepository postRepository, ICommandDispatcher commandDispatcher)
+        : EnhancedRazorPageModel
     {
         public async Task<IActionResult> OnGet()
         {
-            if(!IsLogin())
+            if (!IsLogin())
             {
-                return RedirectToPage("/user/login", new { });
+                return await SendLoginRedirection();
             }
 
             var posts = await commandDispatcher.SendQuery<PostListQuery, List<PostListItem>>(new PostListQuery());

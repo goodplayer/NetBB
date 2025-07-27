@@ -8,20 +8,27 @@ import { StandardPage } from "./layout/standardpage"
 import {
   AspNetCoreRequestVerificationTokenFieldComponent,
   GetErrorInfoList,
-  UserIsLogin
+  UserIsLogin,
+  DefaultRenderObject
 } from "./layout/aspnetcore_utils"
 
 import './styles/user.css'
 
 export class UserLogined extends Component {
   render() {
+    // redirect url handling
+    var redirectInfo = "/"
+    if (DefaultRenderObject().redirect != undefined) {
+      redirectInfo = DefaultRenderObject().redirect
+    }
+
     return (
       <StandardPage>
         <div class="user-register-form border rounded-2">
           <h2 style="margin: 10px">Information</h2>
           <hr style="margin: 10px" />
           <p style="margin: 10px">You have logged in successfully.</p>
-          <p style="margin: 10px"><a href="/index">Return to the index page</a></p>
+          <p style="margin: 10px"><a href={redirectInfo}>Return to the index page</a></p>
         </div>
       </StandardPage>
     );
@@ -38,9 +45,16 @@ export class UserLogin extends Component {
       }
     }
 
+    // redirect url handling
+    var redirectInfo = ""
+    if (DefaultRenderObject().redirect != undefined) {
+      redirectInfo = "?redirect=" + DefaultRenderObject().redirect
+    }
+    var fullPostUrl = "/user/login" + redirectInfo
+
     return (
       <StandardPage>
-        <form method="post" action="/user/login">
+        <form method="post" action={fullPostUrl}>
           <div class="user-register-form border rounded-2">
             <AspNetCoreRequestVerificationTokenFieldComponent />
             <div class="row">

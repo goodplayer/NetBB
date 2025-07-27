@@ -24,7 +24,7 @@ namespace NetBB.Pages.Admin.Posts
         {
             if (!IsLogin())
             {
-                return RedirectToPage("/user/login", new { });
+                return await SendLoginRedirection();
             }
 
             return PrepareRenderPage(antiforgery);
@@ -34,19 +34,19 @@ namespace NetBB.Pages.Admin.Posts
         {
             if (!IsLogin())
             {
-                return RedirectToPage("/user/login", new { });
+                return await SendLoginRedirection();
             }
 
             if (!AllowedPostContentType.ContentTypes.Contains(ContentType))
             {
-                AddErrorInfo("content_type_unknown", "ÎÄ±¾¸ñÊ½Î´Öª");
+                AddErrorInfo("content_type_unknown", "ï¿½Ä±ï¿½ï¿½ï¿½Ê½Î´Öª");
                 return PrepareRenderPage(antiforgery);
             }
 
             Title = TrimInputOrEmpty(Title);
             Content = TrimInputOrEmpty(Content);
-            if (string.IsNullOrEmpty(Title)) AddErrorInfo("title_empty", "±êÌâÎª¿Õ");
-            if (string.IsNullOrEmpty(Content)) AddErrorInfo("content_empty", "ÕýÎÄÎª¿Õ");
+            if (string.IsNullOrEmpty(Title)) AddErrorInfo("title_empty", "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
+            if (string.IsNullOrEmpty(Content)) AddErrorInfo("content_empty", "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
             if (HasErrorInfo())
             {
                 return PrepareRenderPage(antiforgery);

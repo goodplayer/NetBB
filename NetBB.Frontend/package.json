@@ -17,7 +17,7 @@
     "eslint": "^8.57.0",
     "eslint-config-preact": "^1.4.0",
     "prettier": "3.3.2",
-    "vite": "^5.2.2"
+    "vite": "^5.4.19"
   },
   "eslintConfig": {
     "extends": "preact"

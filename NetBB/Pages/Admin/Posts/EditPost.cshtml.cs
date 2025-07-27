@@ -23,10 +23,10 @@ namespace NetBB.Pages.Admin.Posts
         {
             if (!IsLogin())
             {
-                return RedirectToPage("/user/login", new { });
+                return await SendLoginRedirection();
             }
 
-            if (PostId <= 0) AddErrorInfo("post_id_invalid", "ÎÄÕÂ±àºÅ²»ºÏ·¨");
+            if (PostId <= 0) AddErrorInfo("post_id_invalid", "ï¿½ï¿½ï¿½Â±ï¿½Å²ï¿½ï¿½Ï·ï¿½");
             if (HasErrorInfo())
             {
                 return PrepareRenderPage(antiforgery);
@@ -48,20 +48,20 @@ namespace NetBB.Pages.Admin.Posts
         {
             if (!IsLogin())
             {
-                return RedirectToPage("/user/login", new { });
+                return await SendLoginRedirection();
             }
 
             if (!AllowedPostContentType.ContentTypes.Contains(ContentType))
             {
-                AddErrorInfo("content_type_unknown", "ÎÄ±¾¸ñÊ½Î´Öª");
+                AddErrorInfo("content_type_unknown", "ï¿½Ä±ï¿½ï¿½ï¿½Ê½Î´Öª");
                 return PrepareRenderPage(antiforgery);
             }
 
             Title = TrimInputOrEmpty(Title);
             Content = TrimInputOrEmpty(Content);
-            if (string.IsNullOrEmpty(Title)) AddErrorInfo("title_empty", "±êÌâÎª¿Õ");
-            if (string.IsNullOrEmpty(Content)) AddErrorInfo("content_empty", "ÕýÎÄÎª¿Õ");
-            if (PostId <= 0) AddErrorInfo("post_id_invalid", "ÎÄÕÂ±àºÅ²»ºÏ·¨");
+            if (string.IsNullOrEmpty(Title)) AddErrorInfo("title_empty", "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
+            if (string.IsNullOrEmpty(Content)) AddErrorInfo("content_empty", "ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
+            if (PostId <= 0) AddErrorInfo("post_id_invalid", "ï¿½ï¿½ï¿½Â±ï¿½Å²ï¿½ï¿½Ï·ï¿½");
             if (HasErrorInfo())
             {
                 return PrepareRenderPage(antiforgery);

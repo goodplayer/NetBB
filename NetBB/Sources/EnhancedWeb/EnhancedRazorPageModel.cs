@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NetBB.System.EventBus.Services;
 using System.Collections.Concurrent;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace NetBB.Sources.EnhancedWeb
 {
@@ -17,6 +18,7 @@ namespace NetBB.Sources.EnhancedWeb
         public IDictionary<string, object> RenderJson { get; } = new ConcurrentDictionary<string, object>();
         public IDictionary<string, object> ErrorInfo { get; } = new ConcurrentDictionary<string, object>();
         public IDictionary<string, object> RenderObject { get; } = new ConcurrentDictionary<string, object>();
+
         public EnhancedRazorPageModel()
         {
             RenderJson["error_info"] = ErrorInfo;
@@ -40,11 +42,13 @@ namespace NetBB.Sources.EnhancedWeb
             {
                 throw new UnexpectedBusinessException("no login user");
             }
+
             long number = long.Parse(userId);
             if (number <= 0)
             {
                 throw new UnexpectedBusinessException("zero or negative user id");
             }
+
             return number;
         }
 
@@ -63,7 +67,8 @@ namespace NetBB.Sources.EnhancedWeb
                 IsPersistent = true, // enable persistent cookie, meaning set-cookie from response for browser
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(60 * 24),
             };
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity), authProperties);
         }
 
         public async Task RevokeLoginStatus()
@@ -76,12 +81,28 @@ namespace NetBB.Sources.EnhancedWeb
             return HttpContext.User.Identity?.IsAuthenticated ?? false;
         }
 
+        public async Task<IActionResult> SendLoginRedirection()
+        {
+            string path = "/user/login";
+
+            // prepare login redirect url
+            string redirectUrl = Request.Path;
+            if (Request.QueryString.HasValue)
+            {
+                redirectUrl += Request.QueryString;
+            }
+
+            return RedirectToPage(path, new { redirect = redirectUrl });
+        }
+
         public void PrepareRenderLoginStatus()
         {
             var loginObj = new Dictionary<string, object>();
             loginObj["is_logined"] = IsLogin();
-            loginObj["nickname"] = HttpContext.User.Claims.Where(c => c.Type == CLAIM_NICKNAME).FirstOrDefault()?.Value ?? "";
-            loginObj["user_id"] = HttpContext.User.Claims.Where(c => c.Type == CLAIM_USER_ID).FirstOrDefault()?.Value ?? "";
+            loginObj["nickname"] =
+                HttpContext.User.Claims.Where(c => c.Type == CLAIM_NICKNAME).FirstOrDefault()?.Value ?? "";
+            loginObj["user_id"] = HttpContext.User.Claims.Where(c => c.Type == CLAIM_USER_ID).FirstOrDefault()?.Value ??
+                                  "";
             RenderJson["login"] = loginObj;
         }
 
@@ -116,11 +137,13 @@ namespace NetBB.Sources.EnhancedWeb
             {
                 throw new UnexpectedBusinessException("page mode is null");
             }
+
             pageMode = pageMode.Trim();
             if (pageMode.Length == 0)
             {
                 throw new UnexpectedBusinessException("page mode is empty");
             }
+
             PageMode = pageMode;
         }
 

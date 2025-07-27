@@ -11,30 +11,48 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using NetBB.Sources.Utilities;
 using Microsoft.AspNetCore.Http.Headers;
+using Microsoft.Extensions.Primitives;
 
 namespace NetBB.Pages.User
 {
-    public class LoginModel(ILogger<LoginModel> logger
-        , IAntiforgery antiforgery
-        , ICommandDispatcher commandDispatcher
-        , LongIdGenerator longIdGenerator
-        ) : EnhancedRazorPageModel
+    public class LoginModel(
+        ILogger<LoginModel> logger,
+        IAntiforgery antiforgery,
+        ICommandDispatcher commandDispatcher,
+        LongIdGenerator longIdGenerator
+    ) : EnhancedRazorPageModel
     {
+        [BindProperty(Name = "username")] public string UserName { get; set; }
+        [BindProperty(Name = "password")] public string Password { get; set; }
 
-        [BindProperty(Name = "username")]
-        public string UserName { get; set; }
-        [BindProperty(Name = "password")]
-        public string Password { get; set; }
+        private StringValues? ExtractRedirect()
+        {
+            var redirect = Request.Query["redirect"];
+            if (string.IsNullOrEmpty(redirect))
+            {
+                return null;
+            }
+            else if (!redirect.ToString().StartsWith('/')) // block insecure redirect
+            {
+                return null;
+            }
+            else
+            {
+                return redirect;
+            }
+        }
 
         public async Task OnGetAsync()
         {
-            //TODO login redirect to original page
-            //RequestHeaders header = HttpContext.Request.GetTypedHeaders();
-            //string uriReferer = header.Referer?.ToString() ?? "";
-            //logger.LogError("========>>> login referer: {}", uriReferer);
-
             // prepare form submission token
             SetupAntiforgeryToken(antiforgery);
+
+            // add redirect url to page for submission
+            var redirect = ExtractRedirect();
+            if (redirect != (StringValues?)(null))
+            {
+                AddRenderItem("redirect", redirect.ToString());
+            }
 
             PrepareRenderLoginStatus();
         }
@@ -43,6 +61,13 @@ namespace NetBB.Pages.User
         {
             var command = new UserLoginCommand(UserName, Password);
             var result = await commandDispatcher.SendCommand<UserLoginCommand, UserLoginResult>(command);
+
+            // add redirect url to page for submission
+            var redirect = ExtractRedirect();
+            if (redirect != (StringValues?)(null))
+            {
+                AddRenderItem("redirect", redirect.ToString());
+            }
 
             if (result.logined)
             {
