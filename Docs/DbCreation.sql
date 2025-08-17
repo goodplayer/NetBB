@@ -1,4 +1,5 @@
-Move d
+CREATE EXTENSION pg_bigm;
+
 CREATE TABLE auth_ticket
 (
     id           bigserial NOT NULL,
@@ -65,6 +66,8 @@ CREATE TABLE posts
     CONSTRAINT posts_pk PRIMARY KEY (post_id)
 );
 CREATE INDEX posts_time_created_idx ON posts USING btree (time_created DESC);
+
+CREATE INDEX posts_general_fts_idx ON posts USING gin (title gin_bigm_ops, "content" gin_bigm_ops) WITH (FASTUPDATE = off);
 
 CREATE SEQUENCE post_id_seq
     INCREMENT BY 1
